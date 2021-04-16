@@ -11,8 +11,14 @@
             this.cantidadPasajeros = cantidadPasajeros;
             this.descripcion = descripcion;
         }
-        public int CantidadPasajeros => cantidadPasajeros;
-        public string Descripcion => descripcion;
+        private int CantidadPasajeros => cantidadPasajeros;
+        private string Descripcion => descripcion;
+        public int GetCantidadPasajeros() {
+            return CantidadPasajeros;
+        }
+       public string GetDescripcion() {
+            return Descripcion;
+        }
 
         public abstract string Avanzar();
         public abstract string Detenerse();

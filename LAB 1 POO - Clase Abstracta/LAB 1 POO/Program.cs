@@ -29,7 +29,7 @@ namespace LAB_1_POO
             //Recorro la lista de transportes y muestro sus propiedades
             foreach (var item in transportes)
             {
-                Console.WriteLine($"\n El {item.Descripcion} tiene una capacidad para {item.CantidadPasajeros} personas.");
+                Console.WriteLine($"\n El {item.GetDescripcion()} tiene una capacidad para {item.GetCantidadPasajeros()} personas.");
             }
 
             Console.WriteLine("\n Presione una tecla para iniciar el viaje de los transportes");
@@ -38,7 +38,7 @@ namespace LAB_1_POO
             //Recorro la lista de transportes ejecuto sus metodos
             foreach (var item in transportes)
             {
-                Console.WriteLine($"\n Iniciando viaje del {item.Descripcion}: ");
+                Console.WriteLine($"\n Iniciando viaje del {item.GetDescripcion()}: ");
                 Console.Write("INICIO ");
                 for (int i = 0; i < 10; i++)
                 {
