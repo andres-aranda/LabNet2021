@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -82,7 +82,7 @@ namespace Presentacion
 
             #endregion
 
-            #region
+            #region Exepcion personalizada
 
             Console.Write($"Pf que aburrido.. Y si generamos una exepcion personalizada? \n Si quieres puedes comentarla. Vamos escribe algo: ");
             string comentario=Console.ReadLine();
@@ -92,11 +92,10 @@ namespace Presentacion
             }
             catch (CustomExeption ex)
             {
-            
-                //No pude implementar la caja de texto porque quedaba colgado cargando
-                //las referencias tanto para winfor como para presentation framework
 
-             Console.WriteLine(ex.AgregarComentario(comentario));
+              
+                MessageBox.Show(ex.AgregarComentario(comentario));
+            
 
             }
 

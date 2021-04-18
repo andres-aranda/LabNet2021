@@ -12,9 +12,10 @@ namespace Negocio
         {
             return value / 0;
         }
-        public static double DividirPor(this int dividendo, int divisor )
+        public static decimal DividirPor(this int dividendo, int divisor )
         {
-            return (Double)(dividendo / divisor);
+            
+            return Math.Round((decimal)dividendo / (decimal)divisor,2);
         }
     }
 }
