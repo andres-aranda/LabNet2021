@@ -375,43 +375,63 @@ HAVING ISNULL(AVG(emp.SALARY),0) < 1200;
 --38.a- Caso 1: Crear insert de todos los campos en orden.
 --Tip: Notar restricciones de integridad por padre inexistente y por clave duplicada.
 --Debe existir la referencia de la fk que se ingresa y el ID no puede ser duplicado
-
+GO
 BEGIN TRANSACTION;
-INSERT INTO TEST.DEPARTMENTS
-     VALUES (33,'Marketing',1, 'Prensa');
-COMMIT TRANSACTION;
 
+DECLARE @idMax int;
+SET @idMax = (SELECT MAX(ID)+1 FROM TEST.EMPLOYEES);
+
+INSERT INTO TEST.DEPARTMENTS
+     VALUES (@idMax,'Marketing',1, 'Prensa');
+
+COMMIT TRANSACTION;
+GO
 --38.b- Caso 2: Crear insert de todos los campos en orden usando valores nulos.
 --Tip: Notar restricciones de no nulidad.
 --Ciertos campos no permiten nulos en su ingreso
-
+GO
 BEGIN TRANSACTION;
+
+DECLARE @idMax int;
+SET @idMax = (SELECT MAX(ID)+1 FROM TEST.EMPLOYEES);
+
 INSERT INTO TEST.DEPARTMENTS
      VALUES (NULL,NULL,NULL,NULL);
-COMMIT TRANSACTION;
 
+COMMIT TRANSACTION;
+GO
 --38.c- Crear insert usando solamente los campos obligatorios.
 --Tip: Especificar lista de campos obligatorios.
+GO
 BEGIN TRANSACTION
+
+DECLARE @idMax int;
+SET @idMax = (SELECT MAX(ID)+1 FROM TEST.EMPLOYEES);
+
 INSERT INTO TEST.DEPARTMENTS
            (ID,
 		   DEPARTMENT_NAME,
 		   LOCATION_ID)
-     VALUES(99, 'RRHH',1);
+     VALUES(@idMax, 'RRHH',1);
 COMMIT TRANSACTION;
-
+GO
 /*39-	Crear un nuevo empleado basado en los datos de Gustavo Boulette:
 ●	cambiando su nombre
 ●	aumentando su sueldo en $200.
 ●	blanqueando su manager */
-
+GO
 BEGIN TRANSACTION
+
+DECLARE @idMax int;
+SET @idMax = (SELECT MAX(ID)+1 FROM TEST.EMPLOYEES);
+
 INSERT INTO TEST.EMPLOYEES
-SELECT 100 , 'Pepito', 'Gomez',emp.SALARY+200,emp.DEPARTMENT_ID,emp.JOB_ID,emp.HIRE_DATE,NULL
+SELECT @idMax , 'Pepito', 'Gomez',emp.SALARY+200,emp.DEPARTMENT_ID,emp.JOB_ID,emp.HIRE_DATE,NULL
 FROM TEST.EMPLOYEES emp
 WHERE emp.FIRST_NAME='Gustavo' and emp.LAST_NAME='Boulette';
-COMMIT TRANSACTION;
 
+COMMIT TRANSACTION;
+GO
 --40-	Actualizar salario del empleado 10 a $1100.
 
 BEGIN TRANSACTION
@@ -485,6 +505,7 @@ FROM TEST.EMPLOYEES AS emp
 RETURN @Antiguiedad
 END
 GO
+
 
 SELECT dbo.fn_AntiguedadEmpleado(1);
 
