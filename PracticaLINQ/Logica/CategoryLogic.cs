@@ -10,20 +10,19 @@ namespace Logica
 {
     public class CategoryLogic : LogicBase, IABMC<Category>
     {
-        public List<Category> GetCategoriasAsociadas()
+        public IQueryable GetCategoriasAsociadas()
         {
             var query = from prod in context.Products
                         join idCat in context.Categories on prod.CategoryID equals idCat.CategoryID
                         group idCat by idCat.CategoryName into newGroup
-                        select newGroup;
+                        select newGroup.Key;
 
-            return context.Categories.ToList();
+            return query;
         }
         public List<Category> GetAll()
         {
             return context.Categories.ToList();
         }
-
         public Category GetOne(int id)
         {
             return context.Categories.First(c => c.CategoryID == id);

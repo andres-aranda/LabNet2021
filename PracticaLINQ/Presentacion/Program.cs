@@ -170,8 +170,10 @@ namespace Presentacion
             void GetCategoriasAsociadas()
             {
                 Console.WriteLine($"Categorías asociadas a los productos\n");
-
-                Iterador<Category>.Descriptor(categoryLogic.GetCategoriasAsociadas());
+                foreach (var categoria in categoryLogic.GetCategoriasAsociadas())
+                {
+                    Console.WriteLine($"{categoria}\n");
+                }
 
                 Console.ReadKey();
             }
@@ -201,32 +203,32 @@ namespace Presentacion
 
             #region Ejecucion
 
-            //DevolverCustomer();
-            //Console.Clear();
-            //DevolverProductosSinStock();
-            //Console.Clear();
-            //GetProductsStockValenMasDeTres();
-            //Console.Clear();
-            //GetCustomersWashington();
-            //Console.Clear();
-            //GetOneWithId789();
-            //Console.Clear();
-            //GetNombres();
-            //Console.Clear();
-            //CustomerOrderJoin();
-            //Console.Clear();
-            //GetPrimerosTresWhashington();
-            //Console.Clear();
-            //GetAllOrdenadoNombre();
-            //Console.Clear();
-            //GetAllOrdenadoStock();
-            //Console.Clear();
+            DevolverCustomer();
+            Console.Clear();
+            DevolverProductosSinStock();
+            Console.Clear();
+            GetProductsStockValenMasDeTres();
+            Console.Clear();
+            GetCustomersWashington();
+            Console.Clear();
+            GetOneWithId789();
+            Console.Clear();
+            GetNombres();
+            Console.Clear();
+            CustomerOrderJoin();
+            Console.Clear();
+            GetPrimerosTresWhashington();
+            Console.Clear();
+            GetAllOrdenadoNombre();
+            Console.Clear();
+            GetAllOrdenadoStock();
+            Console.Clear();
             GetCategoriasAsociadas();
-            //Console.Clear();
-            //GetPrimerProducto();
-            //Console.Clear();
-            //CustomerConOrdenes();
-            //Console.Clear();
+            Console.Clear();
+            GetPrimerProducto();
+            Console.Clear();
+            CustomerConOrdenes();
+            Console.Clear();
 
             #endregion
 
