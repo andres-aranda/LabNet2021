@@ -1,0 +1,47 @@
+﻿@model List<PresentacionMVC.Models.CategoryView>
+
+@{
+    ViewBag.Title = "Index";
+}
+<head>
+    <LINK REL=StyleSheet HREF="~/Content/MyStyles.css" TYPE="text/css" MEDIA=screen>
+</head>
+<div>
+    <div class="containerBox" style="justify-content:space-between">
+        <h2 style="font-size: xxx-large;">Categorias</h2>
+        @Html.ActionLink("Agregar categoria", "NewEdit", new { ID = 0, Nuevo = true }, new { @class = "btn btn-outline-primary" })
+
+    </div>
+    <div class="containerBox">
+        @foreach (var category in Model)
+        {
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    @if (category.Imagen != null)
+                    {
+
+                    var base64 = Convert.ToBase64String(category.Imagen);
+                    var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                    <img src="@imgSrc" />
+                    }
+
+                    <p class="card-title">@category.Nombre</p>
+                    <p class="card-text">@category.Descripcion</p>
+                    <div>
+                        @Html.ActionLink("Editar", "NewEdit", new { ID = category.ID, Nuevo = false }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Eliminar", "Delete", new { id = category.ID }, new { @class = "btn btn-danger" })
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+        }
+    </div>
+</div>
+
+
+
