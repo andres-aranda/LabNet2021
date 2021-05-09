@@ -1,0 +1,33 @@
+﻿@model PresentacionMVC.Models.CategoryView
+
+@{
+    ViewBag.Title = "NewEdit";
+}
+
+<head>
+    <LINK REL=StyleSheet HREF="~/Content/MyStyles.css" TYPE="text/css" MEDIA=screen>
+</head>
+
+@using (Html.BeginForm("Insert", "Category", FormMethod.Post))
+{
+   
+<div>
+    <div class="containerBox" style="justify-content:space-between">
+        <h2 style="font-size: xxx-large;">Categorias</h2>
+        <input type="submit" class="btn btn-success" value="Guardar" />
+    </div>
+    <div class="paper">
+             <div>
+            <label>ID: </label>@Html.TextBoxFor(x => x.ID, new { @readonly = "readonly" , @class = "texboxTransparent" })
+        </div>
+        <div>
+            <label>Nombre: </label> @Html.TextBoxFor(t => t.Nombre, new { @class = "form-control" , @maxlength = "14" })
+        </div>
+        <div>
+            <label>Description: </label> @Html.TextBoxFor(t => t.Descripcion, new { @class = "form-control" })
+        </div>
+
+    </div>
+</div>
+
+}
