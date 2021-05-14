@@ -15,7 +15,7 @@ namespace Logica
 
         public Category GetOne(int id)
         {
-            return DbContext.Categories.First(c => c.CategoryID == id);
+            return DbContext.Categories.Find(id);
         }
 
         #region Operaciones con transaccion
@@ -30,10 +30,10 @@ namespace Logica
                     DbContext.SaveChanges();
                     dbContextTransaction.Commit();
                 }
-
                 catch
                 {
                     dbContextTransaction.Rollback();
+                    throw;
                 }
             };
         }

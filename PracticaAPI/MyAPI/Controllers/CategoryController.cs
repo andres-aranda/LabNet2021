@@ -26,19 +26,22 @@ namespace MyAPI.Controllers
         }
 
 
-        public CategoryView Get(int id)
+        public IHttpActionResult Get(int id)
         {
             Category entity = logic.GetOne(id);
 
-            var view = new CategoryView
+            var view = new CategoryView();
+
+            if (entity != null)
             {
+                view.ID = entity.CategoryID;
+                view.Descripcion = entity.Description;
+                view.Nombre = entity.CategoryName;
 
-                ID = entity.CategoryID,
-                Descripcion = entity.Description,
-                Nombre = entity.CategoryName
-
-            };
-            return view;
+                return Ok(view);
+            }
+          
+           return NotFound();
         }
 
 
