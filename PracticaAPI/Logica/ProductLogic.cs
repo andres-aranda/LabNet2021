@@ -1,4 +1,5 @@
 ﻿using Entidades;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -33,6 +34,7 @@ namespace Logica
                 catch
                 {
                     dbContextTransaction.Rollback();
+                    throw;
                 }
             };
         }
@@ -51,6 +53,7 @@ namespace Logica
                 catch
                 {
                     dbContextTransaction.Rollback();
+                    throw;
                 }
             };
         }
@@ -61,13 +64,17 @@ namespace Logica
             {
                 try
                 {
+                   var dep = DbContext.Order_Details.Where(o => o.ProductID == id);
+                    DbContext.Order_Details.RemoveRange(dep);
+                    DbContext.SaveChanges();
+               
                     DbContext.Products.Remove(GetOne(id));
                     DbContext.SaveChanges();
-                    dbContextTransaction.Commit();
+                      dbContextTransaction.Commit();
                 }
-
-                catch
+                catch (Exception ex)
                 {
+
                     dbContextTransaction.Rollback();
                     throw;
                 }

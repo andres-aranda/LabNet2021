@@ -52,6 +52,7 @@ namespace Logica
                 catch
                 {
                     dbContextTransaction.Rollback();
+                    throw;
                 }
             };
         }

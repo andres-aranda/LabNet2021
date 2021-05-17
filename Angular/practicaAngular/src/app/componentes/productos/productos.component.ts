@@ -12,7 +12,7 @@ import { MyPopUpComponent } from '../my-pop-up/my-pop-up.component';
 export class ProductosComponent implements OnInit {
 
   listaProductos: Producto[];
-  
+
   //#region Constructor y OnInit
 
   constructor(private productService: ProductoService, public dialog: MatDialog) {
@@ -44,10 +44,10 @@ export class ProductosComponent implements OnInit {
           this.listaProductos = resp)
       },
       error: error => {
-        this.openDialog("Error. Producto no eliminado. Por favor verifique que el producto no se encuentre asociado a una categoria.");
+        this.openDialog("Error. Producto no eliminado. Intentelo mas tarde");
       }
     });
-   }
+  }
   openDialog(messaga: string): void {
     const dialogRef = this.dialog.open(MyPopUpComponent, {
       width: '360px',

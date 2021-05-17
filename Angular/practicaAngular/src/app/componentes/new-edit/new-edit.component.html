@@ -1,7 +1,7 @@
 <div class="container pt-2">
   <div class="row justify-content-sm-center pt-5">
     <div style="padding: 30px;" class="col-sm-6 shadow round pb-3">
-      <h1 *ngIf="producto.ProductID">Modificar producto ID:{{producto.ProductID}}</h1>
+      <h1 *ngIf="producto.ProductID">Modificar producto</h1>
       <h1 *ngIf="!producto.ProductID">Nuevo producto</h1>
 
       <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="producto">
@@ -15,25 +15,39 @@
         <div class="form-group">
           <label class="col-form-label" type="text">Cantidad por unidad:</label>
           <input formControlName="cantidadPorUnidad" class="form-control">
+          <small *ngIf="cantidadPorUnidadCtrl?.invalid && cantidadPorUnidadCtrl?.touched" class="text-danger">La
+            cantidad es obligatoria y no puede ser menor a 0</small>
         </div>
 
         <div class="form-group">
           <label class="col-form-label">Precio por unidad:</label>
-          <input formControlName="precioUnidad" type="number" min="0" class="form-control">
+          <div style="display: flex; align-items: baseline;">
+            <p style="margin-right: 5px; font-size: large;">$</p>
+            <input formControlName="precioUnidad" type="number" min="0" class="form-control">
+          </div>
+          <small *ngIf="precioUnidadCtrl?.invalid && precioUnidadCtrl?.touched" class="text-danger">El precio es
+            obligatorio y no puede ser menor a 0</small>
+
         </div>
 
         <div class="form-group">
           <label class="col-form-label">Stock:</label>
           <input formControlName="stock" type="number" min="0" class="form-control">
+          <small *ngIf="stockCtrl?.invalid && stockCtrl?.touched" class="text-danger">El stock es obligatorio y no puede
+            ser menor a 0</small>
+
         </div>
 
         <div class="form-group">
           <label class="col-form-label">Unidades ya ordenadas:</label>
           <input formControlName="ordenadas" type="number" min="0" class="form-control">
+          <small *ngIf="ordenadasCtrl?.invalid && ordenadasCtrl?.touched" class="text-danger">Las unidades ordenadas son
+            obligatorias y no pueden ser menor a 0</small>
+
         </div>
 
         <div style="display: flex; justify-content: space-around; margin: 5px;">
-          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="this.form.invalid">Guardar</button>
           <button type="button" class="btn btn-danger" (click)="onClickLimpiar()">Limpiar</button>
         </div>
 

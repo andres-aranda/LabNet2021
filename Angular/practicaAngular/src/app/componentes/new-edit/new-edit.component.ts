@@ -17,7 +17,7 @@ export class NewEditComponent implements OnInit {
 
   //#region Constructor y OnInit
 
-    constructor(private readonly fb: FormBuilder,
+  constructor(private readonly fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private productService: ProductoService,
@@ -26,11 +26,11 @@ export class NewEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      nombre: [null, Validators.required],
-      cantidadPorUnidad: [''],
-      precioUnidad: [''],
-      ordenadas: [''],
-      stock: ['']
+      nombre: ['', Validators.required],
+      cantidadPorUnidad: ['', Validators.required],
+      precioUnidad: [0, [Validators.min(0), Validators.required]],
+      ordenadas: [0, [Validators.min(0), Validators.required]],
+      stock: [0, [Validators.min(0), Validators.required]],
     });
 
     this.producto = new Producto();
@@ -110,7 +110,17 @@ export class NewEditComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.nombreCtrl.value != null) {
+
+    console.log(this.form.valid);
+    console.log(this.precioUnidadCtrl.errors);
+    let blanco: String;
+    blanco = this.nombreCtrl.value;
+    this.nombreCtrl.setValue(blanco.trim());
+    blanco = this.cantidadPorUnidadCtrl.value;
+    this.cantidadPorUnidadCtrl.setValue(blanco.trim());
+
+    if (this.form.valid) {
+      console.log(this.form.valid);
       this.producto.Nombre = this.nombreCtrl.value;
       this.producto.PrecioUnidad = this.precioUnidadCtrl.value;
       this.producto.CantidadPorUnidad = this.cantidadPorUnidadCtrl.value;
