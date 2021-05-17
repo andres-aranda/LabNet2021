@@ -4,9 +4,14 @@ using MyAPI.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Net.Http;
+using System.Web.Http.Cors;
+using System.Net;
+using System;
 
 namespace MyAPI.Controllers
 {
+
     public class ProductController : ApiController
     {
         readonly ProductLogic logic = new ProductLogic();
@@ -30,53 +35,83 @@ namespace MyAPI.Controllers
         }
 
 
-        public ProductView Get(int id)
+        public IHttpActionResult Get(int id)
         {
             Product entity = logic.GetOne(id);
-
-            var view = new ProductView
+            if (entity != null)
             {
+                var view = new ProductView
+                {
 
-                ProductID = entity.ProductID,
-                Nombre = entity.ProductName,
-                CantidadPorUnidad = entity.QuantityPerUnit,
-                PrecioUnidad = entity.UnitPrice,
-                UnidadesEnStock = entity.UnitsInStock,
-                UnidadesOrdenadas = entity.UnitsOnOrder
+                    ProductID = entity.ProductID,
+                    Nombre = entity.ProductName,
+                    CantidadPorUnidad = entity.QuantityPerUnit,
+                    PrecioUnidad = entity.UnitPrice,
+                    UnidadesEnStock = entity.UnitsInStock,
+                    UnidadesOrdenadas = entity.UnitsOnOrder
 
-            };
-            return view;
+                };
+                return Ok(view);
+            }
+
+            return NotFound();
         }
 
-        public void Post(ProductView productView)
+        public IHttpActionResult Post(ProductView productView)
         {
-            Product categoryEntity = new Product
+            try
             {
-                ProductName = productView.Nombre,
-                QuantityPerUnit = productView.CantidadPorUnidad,
-                UnitPrice = productView.PrecioUnidad,
-                UnitsOnOrder = productView.UnidadesOrdenadas,
-                UnitsInStock = productView.UnidadesEnStock,
-            };
+                Product categoryEntity = new Product
+                {
+                    ProductName = productView.Nombre,
+                    QuantityPerUnit = productView.CantidadPorUnidad,
+                    UnitPrice = productView.PrecioUnidad,
+                    UnitsOnOrder = productView.UnidadesOrdenadas,
+                    UnitsInStock = productView.UnidadesEnStock,
+                };
 
-            logic.Insert(categoryEntity);
+                logic.Insert(categoryEntity);
+
+                return Ok();
+            }
+            catch
+            {
+                return InternalServerError();
+            }
 
         }
 
-        public void Put(int id, ProductView value)
+        public IHttpActionResult Put(int id, ProductView value)
         {
-            var entity = logic.GetOne(id);
-            entity.ProductName = value.Nombre;
-            entity.QuantityPerUnit = value.CantidadPorUnidad;
-            entity.UnitPrice = value.PrecioUnidad;
-            entity.UnitsOnOrder = value.UnidadesOrdenadas;
-            entity.UnitsInStock = value.UnidadesEnStock;
-            logic.Update(entity);
+            try
+            {
+                var entity = logic.GetOne(id);
+                entity.ProductName = value.Nombre;
+                entity.QuantityPerUnit = value.CantidadPorUnidad;
+                entity.UnitPrice = value.PrecioUnidad;
+                entity.UnitsOnOrder = value.UnidadesOrdenadas;
+                entity.UnitsInStock = value.UnidadesEnStock;
+                logic.Update(entity);
+                return Ok();
+            }
+            catch
+            {
+                return InternalServerError();
+            }
         }
 
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            logic.Delete(id);
+            try
+            {
+                logic.Delete(id);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
         }
     }
 

@@ -1,0 +1,29 @@
+<div class="container">
+<p class="tituloGrande">Productos</p>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div *ngFor="let prod of listaProductos">
+            <div class="col">
+                <mat-card>
+                    <mat-card-title>{{prod.Nombre}}</mat-card-title>
+                    <mat-card-content>
+                        <p>
+                            <br>
+                            Cantidad: {{prod.CantidadPorUnidad}}
+                            <br>
+                            Precio: {{prod.PrecioUnidad}}
+                            <br>
+                            Unidades en stock: {{prod.UnidadesEnStock}}
+                            <br>
+                            Unidades ya ordenadas: {{prod.UnidadesOrdenadas}}
+                        </p>
+                    </mat-card-content>
+                    <mat-card-actions> 
+                        <button mat-button color="primary" (click)="goToUrl(prod.ProductID)">Editar</button>
+                        <button mat-button color="warn" (click)="eliminar(prod.ProductID)">Borrar</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+
+        </div>
+    </div>
+</div>

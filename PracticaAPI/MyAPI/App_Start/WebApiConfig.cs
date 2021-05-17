@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace MyAPI
 {
@@ -7,7 +8,8 @@ namespace MyAPI
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
+            var CORS = new EnableCorsAttribute(origins: "*", headers: "*", methods: "*");
+            config.EnableCors(CORS);
             // Web API routes
             config.MapHttpAttributeRoutes();
 

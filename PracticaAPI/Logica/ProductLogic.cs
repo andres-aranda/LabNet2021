@@ -62,12 +62,14 @@ namespace Logica
                 try
                 {
                     DbContext.Products.Remove(GetOne(id));
+                    DbContext.SaveChanges();
                     dbContextTransaction.Commit();
                 }
 
                 catch
                 {
                     dbContextTransaction.Rollback();
+                    throw;
                 }
             };
         }

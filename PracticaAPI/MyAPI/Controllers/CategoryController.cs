@@ -4,6 +4,7 @@ using MyAPI.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace MyAPI.Controllers
 {
